@@ -37,7 +37,7 @@ export default class App extends Component {
 						</ColText>
 						<ColRating>
 							<Text>{parseInt(data.rating)} </Text>
-							<Icon  type="FontAwesome" name="star"  style={{fontSize: 15, color: ( parseInt(data.rating) > 50 ? "#5dc887" : "#e33f33" ) }} />
+							<Icon  type="FontAwesome" name="star"  style={{fontSize: 15, color: ( parseInt(data.rating) > 75 ? "#5dc887" : parseInt(data.rating) > 50 ? "#e4b93c" : "#e33f33" ) }} />
 						</ColRating>
 					</TopItems>
 				</View>

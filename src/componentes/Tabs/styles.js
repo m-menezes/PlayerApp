@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
 
 import styled from 'styled-components/native';
-
 export const Container = styled.View`
+  background: rgba(0, 73, 117, 0.4);;
   border-bottom-width: 3px;
   border-top-width: 3px;
   border-color: rgba(191, 191, 191, 0.2);
@@ -25,7 +25,7 @@ export const TabImage = styled.View`
   border-radius: 3px;
   border-width: ${StyleSheet.hairlineWidth}px;
   border-color: rgba(0, 0, 0, 0.2);
-  background: rgba(191, 191, 191, 0.2);
+  background: rgba(255, 255, 255, 0.9);
   justify-content: center;
   align-items: center;
 `;
