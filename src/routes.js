@@ -1,29 +1,23 @@
 import React from 'react';
 
 import Main from '~/pages/Main';
-import SearchPage from '~/pages/Search';
-import { Icon } from 'native-base';
-import { createAppContainer, createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import Single from '~/pages/Single';
+import Platform from '~/pages/Platform';
+import Search from '~/pages/Search';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 
 const Routes = createAppContainer(
-  createBottomTabNavigator({
-    Home: { 
-      screen: Main,
-      navigationOptions: {
-        tabBarIcon: () => {
-            return <Icon type="FontAwesome" name="home" />;
-        },
-      },
+  createSwitchNavigator(
+    {
+      Home: Main,
+      SingleGame: Single,
+      PlatformPage: Platform,
+      Search: Search,
     },
-    Search: { 
-      screen: SearchPage,
-      navigationOptions: {
-        tabBarIcon: () => {
-          return <Icon  type="FontAwesome" name="search" />;
-        },
-      },
-    },
-  })
+    {
+      initialRouteName: 'Home',
+    }
+  ),
 );
 
 export default Routes;

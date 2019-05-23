@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
-import pc from '~/assets/pc.png';
 import Api from '~/services/api';
 
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, View, TouchableHighlight } from 'react-native';
+import { withNavigation } from 'react-navigation';
 
-import {Container, TabsContainer, TabItem, TabText, Image} from './styles';
+import {Container, TabsContainer, TabItem, Image} from './styles';
 
-export default class Destaque extends Component {
+class Destaque extends Component {
 	constructor(props) {
 		super(props);
 		this.state = { isLoading: true };
 	}
 	
 	componentDidMount() {
-		Api.defaults.params = { fields: 'name, screenshots.image_id; where platforms = (48) & rating >= 92 & total_rating >= 90; sort popularity desc; limit 3;' };
+		Api.defaults.params = { fields: ' cover.image_id; where platforms = (48) & rating >= 92 & total_rating >= 90; sort popularity desc; limit 5;' };
 		Api.post('/games' )
 		.then((response) => {
 			this.setState({
@@ -25,9 +25,22 @@ export default class Destaque extends Component {
 	lapsList() {
 		return this.state.dataSource.map((data, index) => {
 			return (
-				<TabItem key={index +1}>
-					<Image source={{ uri: 'https://images.igdb.com/igdb/image/upload/t_cover_big_2x/'+data.screenshots[0].image_id+'.jpg' }} style={{ width: 300, height: 200, resizeMode: 'contain' }}/>
-					<TabText>{data.name}</TabText>
+				<TabItem key={index +1} >
+					<TouchableHighlight 
+						onPress={ 
+								() => navigation.navigate(
+									'SingleGame', { 
+										itemId: data.id,
+									}
+								)
+							}
+						>
+						<Image 
+						source={{ uri: 'https://images.igdb.com/igdb/image/upload/t_cover_big_2x/'+data.cover.image_id+'.jpg' }} 
+						style={{ width: 180, height: 250, resizeMode: 'contain' }}
+						
+						/>
+					</TouchableHighlight>
 				</TabItem>
 			)
 		});
@@ -49,4 +62,5 @@ export default class Destaque extends Component {
 			);
 	}
 }
-	
+
+export default withNavigation(Destaque);

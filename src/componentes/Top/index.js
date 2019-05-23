@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 
 import Api from '~/services/api';
 
-import { ActivityIndicator, View, Text } from 'react-native';
+import { ActivityIndicator, View, Text, TouchableHighlight } from 'react-native';
 import { Icon } from 'native-base';
 
 import { Strong, ColText, ColRating, ColNumber, Container, TopItems, Number } from './styles';
 
-export default class App extends Component {
+import { withNavigation } from 'react-navigation';
+
+class PopularesComponent extends Component {
 	constructor(props) {
 		super(props);
 		this.state = { isLoading: true };
@@ -27,19 +29,29 @@ export default class App extends Component {
 		return this.state.dataSource.map((data, index) => {
 			return (
 				<View key={index + 1}>
-					<TopItems >
-						<ColNumber>
-							<Number>{index + 1}</Number>
-						</ColNumber>
-						<ColText>
-							<Strong>{data.name}</Strong>
-							<Text numberOfLines={1} ellipsizeMode="tail">{data.summary} </Text>
-						</ColText>
-						<ColRating>
-							<Text>{parseInt(data.rating)} </Text>
-							<Icon  type="FontAwesome" name="star"  style={{fontSize: 15, color: ( parseInt(data.rating) > 75 ? "#5dc887" : parseInt(data.rating) > 50 ? "#e4b93c" : "#e33f33" ) }} />
-						</ColRating>
-					</TopItems>
+					<TouchableHighlight 
+						onPress={ 
+								() => navigation.navigate(
+									'SingleGame', { 
+										itemId: data.id,
+									}
+								)
+							}
+						>
+						<TopItems >
+							<ColNumber>
+								<Number>{index + 1}</Number>
+							</ColNumber>
+							<ColText>
+								<Strong>{data.name}</Strong>
+								<Text numberOfLines={1} ellipsizeMode="tail">{data.summary} </Text>
+							</ColText>
+							<ColRating>
+								<Text>{parseInt(data.rating)} </Text>
+								<Icon  type="FontAwesome" name="star"  style={{fontSize: 15, color: ( parseInt(data.rating) > 75 ? "#5dc887" : parseInt(data.rating) > 50 ? "#e4b93c" : "#e33f33" ) }} />
+							</ColRating>
+						</TopItems>
+					</TouchableHighlight>
 				</View>
 			)
 		});
@@ -60,4 +72,5 @@ export default class App extends Component {
 			);
 	}
 }
-	
+
+export default withNavigation(PopularesComponent);

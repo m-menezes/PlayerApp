@@ -1,29 +1,30 @@
 import React, { Component } from 'react';
 import { Icon } from 'native-base';
 import Api from '~/services/api';
+
 import Footer from '~/componentes/Footer';
 
 import { ActivityIndicator, View, ScrollView, Text, TouchableHighlight } from 'react-native';
 
 import { Strong, ColText, ColRating, Container, TopItems } from './styles';
 
-export default class SearchPage extends Component {
+
+export default class PlatformPage extends Component {
 	constructor(props) {
 		super(props);
         this.state = { isLoading: true };
-        this.search = this.props.navigation.getParam('search', 'Witcher');
+        this.platformId = this.props.navigation.getParam('platformId', '48');
         this.getDados();
 	}
-
     async getDados() {
-        // Get Details
-        Api.defaults.params = { fields: 'summary, rating, name; search "'+this.search+'";' };
-        const response = await Api.post('/games' );
-        this.setState({
-            isLoading: false,
-            dataSource: response.data,
-        });
-    }
+		// Get Details
+		Api.defaults.params = { fields: 'summary, rating, name; where platforms = '+this.platformId+' & rating > 0; sort popularity desc; limit 20; ' };
+		const response = await Api.post('/games' );
+		this.setState({
+			isLoading: false,
+			dataSource: response.data,
+		});
+	}
     lapsList() {
 		return this.state.dataSource.map((data, index) => {
 			return (
@@ -52,22 +53,22 @@ export default class SearchPage extends Component {
 			)
 		});
 	}
-    
-    render() {
-        if (this.state.isLoading) {
-            return (
-                <View style={{ flex: 1, padding: 20, justifyContent: 'center' }}>
-                    <ActivityIndicator />
-                </View>
-            );
-        }
-        return ( 
-            <Container>
-                <ScrollView>
-                    { this.lapsList() }
+	render() {
+		if (this.state.isLoading) {
+			return (
+				<View style={{ flex: 1, padding: 20, justifyContent: 'center' }}>
+				<ActivityIndicator />
+				</View>
+			);
+		}
+		return ( 
+			<Container>
+				<ScrollView>
+				{ this.lapsList() }
+
                 </ScrollView>
                 <Footer />
-            </Container>
-        );
-    }
+			</Container>
+			);
+	}
 }
