@@ -1,31 +1,31 @@
 import React, { Component } from 'react';
-
+import { Icon } from 'native-base';
 import Api from '~/services/api';
 
-import { ActivityIndicator, View, Text, TouchableHighlight } from 'react-native';
-import { Icon } from 'native-base';
+import Footer from '~/componentes/Footer';
 
-import { Strong, ColText, ColRating, ColNumber, Container, TopItems, Number } from './styles';
+import { ActivityIndicator, View, ScrollView, Text, TouchableHighlight } from 'react-native';
 
-import { withNavigation } from 'react-navigation';
+import { Strong, ColText, ColRating, Container, TopItems } from './styles';
 
-class PopularesComponent extends Component {
+
+export default class PlatformPage extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { isLoading: true };
+        this.state = { isLoading: true };
+        this.platformId = this.props.navigation.getParam('platformId', '48');
+        this.getDados();
 	}
-	
-	componentDidMount() {
-		Api.defaults.params = { fields: 'summary, rating, name; where rating > 0; sort popularity desc; limit 20;' };
-		Api.post('/games' )
-		.then((response) => {
-			this.setState({
-				isLoading: false,
-				dataSource: response.data,
-			}, () => { });
-		})
+    async getDados() {
+		// Get Details
+		Api.defaults.params = { fields: 'summary, rating, name; where platforms = '+this.platformId+' & rating > 0; sort popularity desc; limit 20; ' };
+		const response = await Api.post('/games' );
+		this.setState({
+			isLoading: false,
+			dataSource: response.data,
+		});
 	}
-	lapsList() {
+    lapsList() {
 		return this.state.dataSource.map((data, index) => {
 			return (
 				<View key={index + 1}>
@@ -39,9 +39,6 @@ class PopularesComponent extends Component {
 							}
 						>
 						<TopItems >
-							<ColNumber>
-								<Number>{index + 1}</Number>
-							</ColNumber>
 							<ColText>
 								<Strong>{data.name}</Strong>
 								<Text numberOfLines={1} ellipsizeMode="tail">{data.summary} </Text>
@@ -66,11 +63,12 @@ class PopularesComponent extends Component {
 		}
 		return ( 
 			<Container>
-				<Strong>Populares</Strong>
+				<ScrollView>
 				{ this.lapsList() }
+
+                </ScrollView>
+                <Footer />
 			</Container>
 			);
 	}
 }
-
-export default withNavigation(PopularesComponent);
