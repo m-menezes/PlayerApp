@@ -19,7 +19,7 @@ export default class SingleGamePage extends Component {
 
 	async getDados() {
 		// Get Details
-		Api.defaults.params = { fields: 'name, rating, storyline, summary,cover.image_id, game_modes.name, release_dates.human, platforms.name, genres.name, expansions.name, artworks.image_id, screenshots.image_id; where id = '+this.itemId+';' };
+		Api.defaults.params = { fields: 'name, rating, storyline, summary, cover.image_id, game_modes.name, release_dates.human, platforms.name, genres.name, expansions.name, artworks.image_id, screenshots.image_id; where id = '+this.itemId+';' };
 		const response = await Api.post('/games' );
 		this.setState({
 			isLoading: false,
@@ -40,37 +40,55 @@ export default class SingleGamePage extends Component {
 		return ( 
 			<Container>
 				<ScrollView>
-					<ImageBackground 
-						source={{ uri: 'https://images.igdb.com/igdb/image/upload/t_cover_big_2x/'+( this.state.dataSource.artworks ? this.state.dataSource.artworks[0].image_id : this.state.dataSource.cover.image_id )+'.jpg'}}
-						style={{width: '100%',  }} >
-						<SingleTop>
-							<Image 
-								source={{ uri: 'https://images.igdb.com/igdb/image/upload/t_cover_big_2x/'+this.state.dataSource.cover.image_id+'.jpg' }} 
-								style={{ width: 150, height: 200, resizeMode: 'contain' }}
-							/>
-							<Details>
-								<Block>
-									<Title>{ this.state.dataSource.name }</Title>
-									<Text>{ this.state.dataSource.release_dates[0].human }</Text>
-								</Block>
-								<Block>
-									<Strong>Rating: { parseInt(this.state.dataSource.rating) + 1 }</Strong>
-								</Block>
+						<ImageBackground 
+							source={{ uri: 
+								( this.state.dataSource.artworks 
+									? "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/"+ this.state.dataSource.artworks[0].image_id +".jpg"
+									: this.state.dataSource.cover 
+										? "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/"+this.state.dataSource.cover.image_id+".jpg"
+										: ""
+								)
+							 }}
+							style={{width: '100%'}} >
+							<SingleTop>
 								{ 	
-									this.state.dataSource.genres ? (
-										<Block>
-											<Strong>Genres :</Strong>
-											{ this.state.dataSource.genres.map(r => <Text key={r.id}>{r.name}</Text>) }
-										</Block>
+									this.state.dataSource.cover ? (
+										<Image 
+											source={{ uri: 'https://images.igdb.com/igdb/image/upload/t_cover_big_2x/'+this.state.dataSource.cover.image_id+'.jpg' }} 
+											style={{ width: 150, height: 200, resizeMode: 'contain' }}
+										/>
 									) : (
-										<View></View>
+										<View style={{height: 200}}></View>
 									)
 								}
-							</Details>
-						</SingleTop>
-					</ImageBackground>
-
-					{ this.state.dataSource.storyline ? (
+								<Details>
+									<Block>
+										<Title>{ this.state.dataSource.name }</Title>
+										<Text>{ this.state.dataSource.release_dates[0].human }</Text>
+									</Block>
+									{ 	
+										this.state.dataSource.rating ? (
+										<Block>
+											<Strong>Rating: { parseInt(this.state.dataSource.rating) + 1 }</Strong>
+										</Block>
+										) : (
+											<View></View>
+										)
+									}
+									{ 	
+										this.state.dataSource.genres ? (
+											<Block>
+												<Strong>Gêneros :</Strong>
+												{ this.state.dataSource.genres.map(r => <Text key={r.id}>{r.name}</Text>) }
+											</Block>
+										) : (
+											<View></View>
+										)
+									}
+								</Details>
+							</SingleTop>
+						</ImageBackground>
+					{ this.state.dataSource.game_modes ? (
 						<Block>
 							<Strong>Storyline:</Strong>
 							<Text>{this.state.dataSource.storyline}</Text>

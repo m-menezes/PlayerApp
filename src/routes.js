@@ -4,18 +4,33 @@ import Main from '~/pages/Main';
 import Single from '~/pages/Single';
 import Platform from '~/pages/Platform';
 import Search from '~/pages/Search';
-import { createAppContainer, createSwitchNavigator, createDrawerNavigator } from 'react-navigation';
+
+import { createAppContainer, createSwitchNavigator, createStackNavigator } from 'react-navigation';
 
 const Routes = createAppContainer(
-  createSwitchNavigator(
+  createStackNavigator(
     {
-      Home: Main,
-      SingleGame: Single,
-      PlatformPage: Platform,
-      Search: Search,
+        Home: {
+            screen: Main, 
+            navigationOptions: {
+                header: null,
+            },
+        },
+        Search: {
+            screen: Search, 
+            navigationOptions: {
+                header: null,
+            },
+        },
+        SingleGame: {
+            screen: Single,
+        },
+        PlatformPage:  {
+            screen: Platform,
+        }
     },
     {
-      initialRouteName: 'Home',
+        initialRouteName: 'Home',
     }
   )
 );

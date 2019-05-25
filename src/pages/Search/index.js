@@ -1,23 +1,29 @@
 import React, { Component } from 'react';
+import { withNavigation } from 'react-navigation';
 import { Icon } from 'native-base';
 import Api from '~/services/api';
+
 import Footer from '~/componentes/Footer';
+import Search from '~/componentes/Search';
 
 import { ActivityIndicator, View, ScrollView, Text, TouchableHighlight } from 'react-native';
-
 import { Strong, ColText, ColRating, Container, TopItems } from './styles';
 
-export default class SearchPage extends Component {
+class SearchPage extends Component {
 	constructor(props) {
 		super(props);
-        this.state = { isLoading: true };
-        this.search = this.props.navigation.getParam('search', 'Witcher');
-        this.getDados();
+        this.state = { 
+            isLoading: true,
+            search: this.props.navigation.getParam('search', false),
+        };
+        if(this.state.search){
+            this.getDados();
+        }
 	}
 
     async getDados() {
         // Get Details
-        Api.defaults.params = { fields: 'summary, rating, name; search "'+this.search+'";' };
+        Api.defaults.params = { fields: 'summary, rating, name; where name ~ *"'+this.state.search+'"*; sort popularity desc;' };
         const response = await Api.post('/games' );
         this.setState({
             isLoading: false,
@@ -54,6 +60,17 @@ export default class SearchPage extends Component {
 	}
     
     render() {
+
+        if (!this.state.search) {
+            return ( 
+                <Container>
+                    <Search />
+                    <ScrollView>
+                    </ScrollView>
+                    <Footer />
+                </Container>
+            );
+        }
         if (this.state.isLoading) {
             return (
 				<Container>
@@ -65,6 +82,7 @@ export default class SearchPage extends Component {
         }
         return ( 
             <Container>
+                <Search />
                 <ScrollView>
                     { this.lapsList() }
                 </ScrollView>
@@ -73,3 +91,5 @@ export default class SearchPage extends Component {
         );
     }
 }
+
+export default withNavigation(SearchPage);
