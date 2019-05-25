@@ -56,9 +56,11 @@ export default class SearchPage extends Component {
     render() {
         if (this.state.isLoading) {
             return (
-                <View style={{ flex: 1, padding: 20, justifyContent: 'center' }}>
-                    <ActivityIndicator />
-                </View>
+				<Container>
+					<View style={{ flex: 1, padding: 20, justifyContent: 'center' }}>
+						<ActivityIndicator />
+					</View>
+				</Container>
             );
         }
         return ( 

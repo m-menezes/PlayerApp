@@ -37,7 +37,7 @@ class Destaque extends Component {
 						>
 						<Image 
 						source={{ uri: 'https://images.igdb.com/igdb/image/upload/t_cover_big_2x/'+data.cover.image_id+'.jpg' }} 
-						style={{ width: 180, height: 250, resizeMode: 'contain' }}
+						style={{ width: 180, height: 250, resizeMode: 'cover' }}
 						
 						/>
 					</TouchableHighlight>

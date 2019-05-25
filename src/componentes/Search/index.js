@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
-import { Container, Header, Item, Input, Icon, Button, Text } from 'native-base';
+import { Input, Icon, Button } from 'native-base';
+import { Search, Container } from './styled';
 
 export default class SearchBar extends Component {
   render() {
     return (
-        <Header searchBar rounded style={{ backgroundColor :"#192060" }}>
-          <Item >
-            <Icon name="ios-search" />
-            <Input placeholder="Game"/>
-          </Item>
-          <Button transparent>
-            <Text>Search</Text>
-          </Button>
-        </Header>
+        <Container>
+            <Button transparent >
+                <Icon name="ios-menu" />
+            </Button>
+            <Search style={{ fixed :"top"}}>
+                <Icon name="ios-search" />
+                <Input placeholder="Game" style={{ maxHeight: 40, alignContent: 'center'}}/>
+            </Search>
+        </Container>
       );
     }
   }

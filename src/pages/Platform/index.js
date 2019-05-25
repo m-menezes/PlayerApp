@@ -18,7 +18,7 @@ export default class PlatformPage extends Component {
 	}
     async getDados() {
 		// Get Details
-		Api.defaults.params = { fields: 'summary, rating, name; where platforms = '+this.platformId+' & rating > 0; sort popularity desc; limit 20; ' };
+		Api.defaults.params = { fields: 'summary, rating, name; where platforms = ['+this.platformId+']; sort popularity desc; limit 20; ' };
 		const response = await Api.post('/games' );
 		this.setState({
 			isLoading: false,
@@ -56,9 +56,11 @@ export default class PlatformPage extends Component {
 	render() {
 		if (this.state.isLoading) {
 			return (
-				<View style={{ flex: 1, padding: 20, justifyContent: 'center' }}>
-				<ActivityIndicator />
-				</View>
+				<Container>
+					<View style={{ flex: 1, padding: 20, justifyContent: 'center' }}>
+						<ActivityIndicator />
+					</View>
+				</Container>
 			);
 		}
 		return ( 
