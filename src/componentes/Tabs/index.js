@@ -63,7 +63,7 @@ export default function Tabs() {
                     </TabItem>
                 </TouchableHighlight>
 
-                <TouchableHighlight onPress={ () => navigation.navigate( 'PlatformPage', { platformId: 137 } ) } >
+                <TouchableHighlight onPress={ () => navigation.navigate( 'PlatformPage', { platformId: 37 } ) } >
                     <TabItem>
                         <TabImage><Logo source={nin3ds} style={{ resizeMode: 'contain' }}/></TabImage>
                     <TabText>Nintendo 3DS</TabText>

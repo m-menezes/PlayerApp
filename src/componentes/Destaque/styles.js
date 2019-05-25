@@ -13,10 +13,6 @@ export const TabsContainer = styled.ScrollView.attrs({
 export const Image = styled.Image`
 `;
 export const TabItem = styled.View`
-	margin:5px 5px 10px 15px;
+	margin:10px 5px 10px 15px;
 	justify-content: space-between;
-`;
-export const TabText = styled.Text`
-	font-size: 13px;
-	color: #000;
 `;

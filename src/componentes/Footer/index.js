@@ -6,8 +6,8 @@ import { Footer, FooterTab, Button, Icon, Text } from 'native-base';
 class FooterComponent extends Component {
     render() {
         return (
-            <Footer  style={{ backgroundColor :"#192060" }}>
-                <FooterTab>
+            <Footer>
+                <FooterTab style={{ backgroundColor :"#192060" }}>
                     <Button vertical onPress={ () => navigation.navigate('Home')}>
                         <Icon type="FontAwesome" name="home" />
                         <Text>Inicio</Text>

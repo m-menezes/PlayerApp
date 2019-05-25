@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import Top from '~/componentes/Top';
 import Tabs from '~/componentes/Tabs';
-import Footer from '~/componentes/Footer';
 import Search from '~/componentes/Search';
 import Destaque from '~/componentes/Destaque';
 
@@ -24,7 +23,6 @@ export default class Main extends Component {
 					<Tabs />
 					<Top />
 				</ScrollView>
-				<Footer />
 			</Container>
 		);
 	}

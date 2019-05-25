@@ -3,9 +3,6 @@ import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 export const Container = styled.View`
   background: #192060;
-  border-bottom-width: 3px;
-  border-top-width: 3px;
-  border-color: rgba(191, 191, 191, 0.2);
   padding: 10px;
 `;
 export const Strong = styled.Text`
@@ -22,7 +19,7 @@ export const TabsContainer = styled.ScrollView.attrs({
 export const TabImage = styled.View`
   width: 100px;
   height: 100px;
-  border-radius: 10px;
+  border-radius: 20px;
   border-width: ${StyleSheet.hairlineWidth}px;
   border-color: rgba(0, 0, 0, 0.2);
   background: rgba(255, 255, 255, 0.9);
@@ -31,7 +28,7 @@ export const TabImage = styled.View`
 `;
   
 export const Logo = styled.Image`
-  width: 80px;
+  width: 70px;
   align-self: center;
 `;
 export const TabItem = styled.View`

@@ -30,9 +30,11 @@ export default class SingleGamePage extends Component {
 	render() {
 		if (this.state.isLoading) {
 			return (
-				<View style={{ flex: 1, padding: 20, justifyContent: 'center' }}>
-				<ActivityIndicator />
-				</View>
+				<Container>
+					<View style={{ flex: 1, padding: 20, justifyContent: 'center' }}>
+						<ActivityIndicator />
+					</View>
+				</Container>
 			);
 		}
 		return ( 
@@ -88,21 +90,28 @@ export default class SingleGamePage extends Component {
 						</ImageBackground>
 					{ this.state.dataSource.game_modes ? (
 						<Block>
-							<Strong>Modo:</Strong>
-							{ this.state.dataSource.game_modes.map(r => <Text key={r.id}>{r.name}</Text>) }
-						</Block>
-					) : (<View></View>)}
-
-					{ this.state.dataSource.storyline ? (
-						<Block>
 							<Strong>Storyline:</Strong>
 							<Text>{this.state.dataSource.storyline}</Text>
 						</Block>
 					) : (<View></View>)}
 
+					{ this.state.dataSource.summary ? (
+						<Block>
+							<Strong>Summary:</Strong>
+							<Text>{this.state.dataSource.summary}</Text>
+						</Block>
+					) : (<View></View>)}
+
+					{ this.state.dataSource.game_modes ? (
+						<Block>
+							<Strong>Modes:</Strong>
+							{ this.state.dataSource.game_modes.map(r => <Text key={r.id}>{r.name}</Text>) }
+						</Block>
+					) : (<View></View>)}
+
 					{ this.state.dataSource.expansions ? (
 						<Block>
-							<Strong>Expansões:</Strong>
+							<Strong>Expansions:</Strong>
 							{ this.state.dataSource.expansions.map(r => <Text key={r.id}>{r.name}</Text>) }
 						</Block>
 					) : (<View></View>)}
@@ -110,7 +119,7 @@ export default class SingleGamePage extends Component {
 					{ 	
 						this.state.dataSource.platforms ? (
 							<Block>
-								<Strong>Plataformas:</Strong>
+								<Strong>Platforms:</Strong>
 								{ this.state.dataSource.platforms.map(r => <Text key={r.id}>{r.name}</Text>) }
 							</Block>
 						) : (
@@ -135,12 +144,6 @@ export default class SingleGamePage extends Component {
 						</Block>
 					) : (<View></View>)}
 
-					{ this.state.dataSource.summary ? (
-						<Block>
-							<Strong>Summary:</Strong>
-							<Text>{this.state.dataSource.summary}</Text>
-						</Block>
-					) : (<View></View>)}
 					<Block></Block>
 				</ScrollView>
 				<Footer />
