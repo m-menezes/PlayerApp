@@ -2,21 +2,28 @@ import React, { Component } from 'react';
 import { Icon } from 'native-base';
 import Api from '~/services/api';
 
-import Footer from '~/componentes/Footer';
-
 import { ActivityIndicator, View, ScrollView, Text, TouchableHighlight } from 'react-native';
 
 import { Strong, ColText, ColRating, Container, TopItems } from './styles';
 
 
 export default class PlatformPage extends Component {
-	constructor(props) {
-		super(props);
+    static navigationOptions = ({ navigation }) => {
+        const title = navigation.getParam('platformName');
+        return {
+            title: title,
+        };
+    };
+    
+    constructor(props) {
+        super(props);
         this.state = { isLoading: true };
         this.platformId = this.props.navigation.getParam('platformId', '48');
         this.getDados();
-	}
-    async getDados() {
+    };
+    
+
+	async getDados() {
 		// Get Details
 		Api.defaults.params = { fields: 'summary, rating, name; where platforms = ['+this.platformId+']; sort popularity desc; limit 20; ' };
 		const response = await Api.post('/games' );
@@ -24,7 +31,8 @@ export default class PlatformPage extends Component {
 			isLoading: false,
 			dataSource: response.data,
 		});
-	}
+    };
+    
     lapsList() {
 		return this.state.dataSource.map((data, index) => {
 			return (
@@ -67,10 +75,8 @@ export default class PlatformPage extends Component {
 			<Container>
 				<ScrollView>
 				{ this.lapsList() }
-
                 </ScrollView>
-                <Footer />
 			</Container>
-			);
+		);
 	}
 }

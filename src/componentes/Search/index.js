@@ -10,6 +10,7 @@ class SearchBar extends Component {
         this.state = {
             label: '',
         };
+        this.search = this.props.navigation.getParam('search', null);
     }
     
     SubmitSearch = ({nativeEvent: {text}}) => {
@@ -33,11 +34,9 @@ class SearchBar extends Component {
                     <Icon name="ios-search" />
                     <TextInput
                         placeholder="Search"
-                        ref={input => {
-                            this.input = input;
-                        }}
                         onSubmitEditing={ this.SubmitSearch }
                         style={{flex:1}}
+                        defaultValue = { this.search }
                     />
                 </Item>
             </Header>

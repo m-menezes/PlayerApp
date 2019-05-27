@@ -13,7 +13,7 @@ class Destaque extends Component {
 	}
 	
 	componentDidMount() {
-		Api.defaults.params = { fields: ' cover.image_id; where platforms = (48) & rating >= 92 & total_rating >= 90; sort popularity desc; limit 5;' };
+		Api.defaults.params = { fields: 'name, cover.image_id; where platforms = (48) & rating >= 92 & total_rating >= 90; sort popularity desc; limit 5;' };
 		Api.post('/games' )
 		.then((response) => {
 			this.setState({
@@ -31,6 +31,7 @@ class Destaque extends Component {
 								() => navigation.navigate(
 									'SingleGame', { 
 										itemId: data.id,
+										gameName: data.name,
 									}
 								)
 							}

@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import Api from '~/services/api';
+import ImageViewer from 'react-native-image-zoom-viewer';
 
-import Footer from '~/componentes/Footer';
-import {  ActivityIndicator, View, ScrollView, TouchableHighlight, ImageBackground } from 'react-native';
+import {  ActivityIndicator, View, ScrollView, TouchableHighlight, ImageBackground, Modal } from 'react-native';
 import { Container, Image, SingleTop, Text, Details, Title, Block, Strong, Screenshots } from './styles';
 
 export default class SingleGamePage extends Component {
+	static navigationOptions = ({ navigation }) => {
+        const title = navigation.getParam('gameName');
+        return {
+            title: title,
+        };
+	};
 	
 	constructor(props) {
 		super(props);
@@ -24,10 +30,21 @@ export default class SingleGamePage extends Component {
 		this.setState({
 			isLoading: false,
 			dataSource: response.data[0],
-		});
+		})
+		if(response.data[0].screenshots){
+			this.setState({
+				images: response.data[0].screenshots.map(
+					r => ({
+						url: 'https://images.igdb.com/igdb/image/upload/t_1080p/'+r.image_id+'.jpg'
+					})
+				)
+			})
+		}
 	}
 	
 	render() {
+		
+		
 		if (this.state.isLoading) {
 			return (
 				<Container>
@@ -46,7 +63,7 @@ export default class SingleGamePage extends Component {
 									? "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/"+ this.state.dataSource.artworks[0].image_id +".jpg"
 									: this.state.dataSource.cover 
 										? "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/"+this.state.dataSource.cover.image_id+".jpg"
-										: ""
+										: "https://github.com/m-menezes/PlayerApp/blob/master/src/assets/logo.png"
 								)
 							 }}
 							style={{width: '100%'}} >
@@ -64,7 +81,13 @@ export default class SingleGamePage extends Component {
 								<Details>
 									<Block>
 										<Title>{ this.state.dataSource.name }</Title>
-										<Text>{ this.state.dataSource.release_dates[0].human }</Text>
+										{
+											this.state.dataSource.release_dates ? (
+												<Text>{ this.state.dataSource.release_dates[0].human }</Text>
+											) : (
+												<View></View>
+											)
+										}
 									</Block>
 									{ 	
 										this.state.dataSource.rating ? (
@@ -133,7 +156,10 @@ export default class SingleGamePage extends Component {
 							<Screenshots>
 								{ this.state.dataSource.screenshots.map(
 									r => 
-									<TouchableHighlight key={r.id}>
+									<TouchableHighlight 
+										onPress={ () => this.setState({ modalVisible: true })}
+										key={r.id}
+										>
 										<Image 
 											source={{ uri: 'https://images.igdb.com/igdb/image/upload/t_cover_big_2x/'+r.image_id+'.jpg' }} 
 											style={{ width: 300, height: 200, resizeMode: 'contain', marginLeft: 10 }}
@@ -141,12 +167,13 @@ export default class SingleGamePage extends Component {
 									</TouchableHighlight>
 								)}
 							</Screenshots>
+							<Modal visible={this.state.modalVisible} transparent={true} onRequestClose={() => this.setState({ modalVisible: false })}>
+								<ImageViewer imageUrls={this.state.images}/>
+							</Modal>
 						</Block>
 					) : (<View></View>)}
-
 					<Block></Block>
 				</ScrollView>
-				<Footer />
 			</Container>
 		);
 	}

@@ -3,7 +3,6 @@ import { withNavigation } from 'react-navigation';
 import { Icon } from 'native-base';
 import Api from '~/services/api';
 
-import Footer from '~/componentes/Footer';
 import Search from '~/componentes/Search';
 
 import { ActivityIndicator, View, ScrollView, Text, TouchableHighlight } from 'react-native';
@@ -38,7 +37,8 @@ class SearchPage extends Component {
 						onPress={ 
 								() => navigation.navigate(
 									'SingleGame', { 
-										itemId: data.id,
+                                        itemId: data.id,
+                                        gameName: data.name,
 									}
 								)
 							}
@@ -86,7 +86,6 @@ class SearchPage extends Component {
                 <ScrollView>
                     { this.lapsList() }
                 </ScrollView>
-                <Footer />
             </Container>
         );
     }

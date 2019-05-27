@@ -12,7 +12,7 @@ export const Image = styled.Image`
 	align-items: center;
 `;
 export const SingleTop = styled.View`
- 	backgroundColor: rgba(255,255,255, 0.75);
+ 	background-color: rgba(255,255,255, 0.75);
 	padding: 20px 0;
 `;
 export const Details = styled.View`

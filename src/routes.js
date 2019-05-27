@@ -27,7 +27,7 @@ const Routes = createAppContainer(
         },
         PlatformPage:  {
             screen: Platform,
-        }
+        },   
     },
     {
         initialRouteName: 'Home',

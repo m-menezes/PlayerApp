@@ -34,6 +34,7 @@ class PopularesComponent extends Component {
 								() => navigation.navigate(
 									'SingleGame', { 
 										itemId: data.id,
+										gameName: data.name,
 									}
 								)
 							}
@@ -66,7 +67,7 @@ class PopularesComponent extends Component {
 		}
 		return ( 
 			<Container>
-				<Strong>Populares</Strong>
+				<Strong>Top 20</Strong>
 				{ this.lapsList() }
 			</Container>
 			);
