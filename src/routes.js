@@ -4,6 +4,7 @@ import Main from '~/pages/Main';
 import Single from '~/pages/Single';
 import Platform from '~/pages/Platform';
 import Search from '~/pages/Search';
+import AllPlatform from '~/pages/AllPlatform';
 
 import { createAppContainer, createSwitchNavigator, createStackNavigator } from 'react-navigation';
 
@@ -27,7 +28,10 @@ const Routes = createAppContainer(
         },
         PlatformPage:  {
             screen: Platform,
-        },   
+        },
+        AllPlatforms:  {
+            screen: AllPlatform,
+        },
     },
     {
         initialRouteName: 'Home',

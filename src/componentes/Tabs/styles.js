@@ -35,6 +35,18 @@ export const TabItem = styled.View`
   margin-left:10px;
   max-width: 100px;
 `;
+export const Row = styled.View`
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+export const Button = styled.Text`
+  padding-left:10px;
+  padding-right:10px;
+  border-radius: 20px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.9);
+`;
 export const TabText = styled.Text`
   flex-wrap: wrap;
   font-size: 13px;

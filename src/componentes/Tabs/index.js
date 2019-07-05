@@ -14,7 +14,8 @@ import xbox360 from '~/assets/xbox360.png';
 import xboxone from '~/assets/xboxone.png';
 
 import { TouchableHighlight } from 'react-native';
-import { Strong, Container, TabsContainer, TabItem, TabImage, TabText, Logo} from './styles';
+import { Strong, Container, TabsContainer, TabItem, TabImage, TabText, Logo, Button, Row} from './styles';
+// import { Row } from 'native-base';
 
 export default function Tabs() {
 
@@ -36,7 +37,12 @@ export default function Tabs() {
 
     return (
         <Container >
-            <Strong>Platforms</Strong>
+            <Row>
+                <Strong>Platforms</Strong>
+                <TouchableHighlight onPress={ () => navigation.navigate( 'AllPlatforms' ) } >
+                    <Button>All</Button>
+                </TouchableHighlight>
+            </Row>
             <TabsContainer>
                 { platforms.map(r => 
                     <TouchableHighlight key={r.id} onPress={ () => navigation.navigate( 'PlatformPage', { platformId: r.id, platformName: r.platformName} ) } >

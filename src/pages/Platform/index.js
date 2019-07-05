@@ -39,9 +39,10 @@ export default class PlatformPage extends Component {
 				<View key={index + 1}>
 					<TouchableHighlight 
 						onPress={ 
-								() => navigation.navigate(
+								() => this.props.navigation.navigate(
 									'SingleGame', { 
 										itemId: data.id,
+										gameName: data.name,
 									}
 								)
 							}
