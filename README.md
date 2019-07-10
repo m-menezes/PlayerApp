@@ -52,6 +52,11 @@ Agora já é possivel executar o projeto, lembre-se de possuir um dispositivo mo
 ```
 adb devices
 ```
+Executar:
+
+```
+react-native run-android
+```
 
 ### Criado com:
 
